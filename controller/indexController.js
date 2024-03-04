@@ -17,7 +17,7 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const { name, contact } = req.body;
+    const { name, contact, email, dob } = req.body;
     const filename = req.file.originalname;
     const data = req.file.buffer;
     const image = { filename, data };
