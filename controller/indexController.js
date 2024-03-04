@@ -21,7 +21,7 @@ exports.create = async (req, res, next) => {
     const filename = req.file.originalname;
     const data = req.file.buffer;
     const image = { filename, data };
-    const info = await new formModel({ name, contact, image });
+    const info = await new formModel({ name, contact, email, dob, image });
     await info.save();
 
     res.status(200).json({
