@@ -18,7 +18,8 @@ exports.home = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const { name, contact, email, dob } = req.body;
-    const filename = req.file.originalname;
+    // const filename = req.file.originalname;
+    const filename = req.file.name;
     const data = req.file.buffer;
     const image = { filename, data };
     const info = await new formModel({ name, contact, email, dob, image });
