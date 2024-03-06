@@ -26,6 +26,7 @@ exports.create = async (req, res, next) => {
 
     res.status(200).json({
       message: "Create Successfull!",
+      info,
     });
   } catch (error) {
     res.json(error.message);
