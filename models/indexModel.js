@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const informationSchema = mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    // require: true,
   },
   contact: {
     type: String,
-    require: true,
+    // require: true,
   },
   email: {
     type: String,
