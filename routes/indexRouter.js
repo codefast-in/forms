@@ -10,7 +10,7 @@ const upload = multer({ storage: storage });
 router.get("/", home);
 
 //POST  /api/v2/create
-router.post("/create", create);
+router.post("/create", upload.single("image"), create);
 
 //GET  /api/v2/readall
 router.get("/readall", read);
