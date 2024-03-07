@@ -1,11 +1,4 @@
 const formModel = require("../models/indexModel");
-// const Grid = require("gridfs-stream");
-
-// let gfs;
-// mongoose.connection.once("open", () => {
-//   gfs = Grid(mongoose.connection.db, mongoose.mongo);
-//   gfs.collection("uploads");
-// });
 
 exports.home = async (req, res, next) => {
   try {
@@ -17,26 +10,20 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    // const fil = req.file;
-    // const filename = req.file.originalname;
-    // const data = req.file.buffer;
-    // const image = { filename, data };
+    const fil = req.file;
+    if (!fil) {
+      return res.status(400).json({
+        message: "Please Upload a file!",
+      });
+    }
+    const filename = req.file.originalname;
+    const data = req.file.buffer;
+    const image = { filename, data };
 
-    const { originalPath, type, height, width, fileName, fileSize, uri } =
-      req.body;
-    const image = {
-      originalPath,
-      fileType: type,
-      height,
-      width,
-      fileName,
-      fileSize,
-      uri,
-    };
-    const { fullname, contact, email, dob } = req.body;
+    const { name, contact, email, dob } = req.body;
 
     const info = await new formModel({
-      fullname,
+      name,
       contact,
       email,
       dob,
