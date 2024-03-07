@@ -34,6 +34,7 @@ exports.create = async (req, res, next) => {
     const { name, uri, type } = req.body;
 
     const fileBuffer = Buffer.from(uri, "base64");
+    console.log(fileBuffer);
     const image = { fileBuffer, name, fileType: type };
     const info = await new formModel({ image });
     res.status(200).json({
