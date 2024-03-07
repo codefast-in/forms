@@ -16,15 +16,17 @@ const informationSchema = mongoose.Schema({
     type: String,
   },
   image: {
-    filename: String,
-    data: Buffer,
+    // filename: String,
+    // data: Buffer,
     // originalPath: String,
     // fileType: String,
     // height: Number,
     // width: Number,
     // fileName: String,
     // fileSize: Number,
-    // uri: String,
+    fileBuffer: Buffer,
+    name: String,
+    fileType: String,
   },
 });
 

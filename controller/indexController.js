@@ -10,27 +10,32 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const fil = req.file;
-    if (!fil) {
-      return res.status(400).json({
-        message: "Please Upload a file!",
-      });
-    }
-    const filename = req.file.originalname;
-    const data = req.file.buffer;
-    const image = { filename, data };
+    // const fil = req.file;
+    // if (!fil) {
+    //   return res.status(400).json({
+    //     message: "Please Upload a file!",
+    //   });
+    // }
+    // const filename = req.file.originalname;
+    // const data = req.file.buffer;
+    // const image = { filename, data };
 
-    const { name, contact, email, dob } = req.body;
+    // const { name, contact, email, dob } = req.body;
 
-    const info = await new formModel({
-      name,
-      contact,
-      email,
-      dob,
-      image,
-    });
-    await info.save();
+    // const info = await new formModel({
+    //   name,
+    //   contact,
+    //   email,
+    //   dob,
+    //   image,
+    // });
+    // await info.save();
 
+    const { name, uri, type } = req.body;
+
+    const fileBuffer = Buffer.from(uri, "base64");
+    const image = { fileBuffer, name, fileType: type };
+    const info = await new formModel({ image });
     res.status(200).json({
       message: "Data uploaded successfully",
       info,
