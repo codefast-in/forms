@@ -17,6 +17,12 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
+    if (!req.file) {
+      console.error("No file uploaded.");
+      return res.status(400).json("No files were uploaded.");
+    }
+
+    const fil = req.file;
     const { name, contact, email, dob } = req.body;
     const filename = req.file.originalname;
     const data = req.file.buffer;
@@ -25,8 +31,9 @@ exports.create = async (req, res, next) => {
     await info.save();
 
     res.status(200).json({
-      message: "Create Successfull!",
+      message: "Data uploaded successfully",
       info,
+      fil,
     });
   } catch (error) {
     res.json(error.message);
