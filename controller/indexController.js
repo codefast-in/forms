@@ -17,6 +17,8 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
+    const body = req.body;
+    console.log(body || "nahi hai");
     if (!req.file) {
       console.error("No file uploaded.");
       return res.status(400).json("No files were uploaded.");
