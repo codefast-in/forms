@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const informationSchema = mongoose.Schema({
-  name: {
+  fullname: {
     type: String,
     // require: true,
   },
@@ -16,8 +16,15 @@ const informationSchema = mongoose.Schema({
     type: String,
   },
   image: {
-    filename: String,
-    data: Buffer,
+    // filename: String,
+    // data: Buffer,
+    originalPath: String,
+    fileType: String,
+    height: Number,
+    width: Number,
+    fileName: String,
+    fileSize: Number,
+    uri: String,
   },
 });
 

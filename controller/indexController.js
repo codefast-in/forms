@@ -17,25 +17,36 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const body = req.body;
-    console.log(body || "nahi hai");
-    if (!req.file) {
-      console.error("No file uploaded.");
-      return res.status(400).json("No files were uploaded.");
-    }
+    // const fil = req.file;
+    // const filename = req.file.originalname;
+    // const data = req.file.buffer;
+    // const image = { filename, data };
 
-    const fil = req.file;
-    const { name, contact, email, dob } = req.body;
-    const filename = req.file.originalname;
-    const data = req.file.buffer;
-    const image = { filename, data };
-    const info = await new formModel({ name, contact, email, dob, image });
+    const { originalPath, type, height, width, fileName, fileSize, uri } =
+      req.body;
+    const image = {
+      originalPath,
+      fileType: type,
+      height,
+      width,
+      fileName,
+      fileSize,
+      uri,
+    };
+    const { fullname, contact, email, dob } = req.body;
+
+    const info = await new formModel({
+      fullname,
+      contact,
+      email,
+      dob,
+      image,
+    });
     await info.save();
 
     res.status(200).json({
       message: "Data uploaded successfully",
       info,
-      fil,
     });
   } catch (error) {
     res.json(error.message);
