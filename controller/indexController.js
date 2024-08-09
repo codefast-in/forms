@@ -1,4 +1,5 @@
 const formModel = require("../models/indexModel");
+const imagekit = require("../utils/imageKit.js").initImageKit();
 
 exports.home = async (req, res, next) => {
   try {
@@ -10,25 +11,17 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const { name, uri, type } = req.body;
+    const { name } = req.body;
     const file = req.file;
-    const files = req.files;
-    console.log(file, files);
+    const modified = file.originalname;
+    console.log(modified);
 
-    // const modified = `resumebulder-${Date.now()}${path.extname(file.name)}`;
+    const { fileId, url } = await imagekit.upload({
+      file: file.buffer,
+      fileName: modified,
+    });
 
-    // if (student.avatar.fileId !== "") {
-    //   await imagekit.deleteFile(student.avatar.fileId);
-    // }
-
-    // const { fileId, url } = await imagekit.upload({
-    //   file: file.data,
-    //   fileName: modified,
-    // });
-
-    // student.avatar = { fileId, url };
-    // await student.save();
-    res.json({ message: "Form Submitted Successfully!", file, files });
+    res.json({ message: "Form Submitted Successfully!", name, url, fileId });
   } catch (error) {
     res.json(error);
   }
