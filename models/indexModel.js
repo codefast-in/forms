@@ -16,18 +16,10 @@ const informationSchema = mongoose.Schema({
     type: String,
   },
   image: {
-    // filename: String,
-    // data: Buffer,
-    // originalPath: String,
-    // fileType: String,
-    // height: Number,
-    // width: Number,
-    // fileName: String,
-    // fileSize: Number,
-    fileBuffer: Buffer,
-    name: String,
-    fileType: String,
+    type: Object,
+    url: "",
+    fileId: "",
   },
 });
 
-module.exports = mongoose.model("form", informationSchema);
+module.exports = mongoose.model("user", informationSchema);

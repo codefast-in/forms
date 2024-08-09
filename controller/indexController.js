@@ -11,17 +11,16 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, email, contact, dob } = req.body;
     const file = req.file;
-    const modified = file.originalname;
-    console.log(modified);
-
+    const modified = Date.now() + file.originalname;
     const { fileId, url } = await imagekit.upload({
       file: file.buffer,
       fileName: modified,
     });
-
-    res.json({ message: "Form Submitted Successfully!", name, url, fileId });
+    const reqData = { ...req.body, image: { fileId: fileId, url } };
+    const responseData = await formModel(reqData).save();
+    res.json({ message: "Form Submitted Successfully!" });
   } catch (error) {
     res.json(error);
   }
