@@ -10,37 +10,25 @@ exports.home = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    // const fil = req.file;
-    // if (!fil) {
-    //   return res.status(400).json({
-    //     message: "Please Upload a file!",
-    //   });
-    // }
-    // const filename = req.file.originalname;
-    // const data = req.file.buffer;
-    // const image = { filename, data };
-
-    // const { name, contact, email, dob } = req.body;
-
-    // const info = await new formModel({
-    //   name,
-    //   contact,
-    //   email,
-    //   dob,
-    //   image,
-    // });
-    // await info.save();
-
     const { name, uri, type } = req.body;
+    const file = req.file;
+    const files = req.files;
+    console.log(file, files);
 
-    const fileBuffer = Buffer.from(uri, "base64");
-    console.log(fileBuffer);
-    const image = { fileBuffer, name, fileType: type };
-    const info = await new formModel({ image });
-    res.status(200).json({
-      message: "Data uploaded successfully",
-      info,
-    });
+    // const modified = `resumebulder-${Date.now()}${path.extname(file.name)}`;
+
+    // if (student.avatar.fileId !== "") {
+    //   await imagekit.deleteFile(student.avatar.fileId);
+    // }
+
+    // const { fileId, url } = await imagekit.upload({
+    //   file: file.data,
+    //   fileName: modified,
+    // });
+
+    // student.avatar = { fileId, url };
+    // await student.save();
+    res.json({ message: "Form Submitted Successfully!", file, files });
   } catch (error) {
     res.json(error.message);
   }
