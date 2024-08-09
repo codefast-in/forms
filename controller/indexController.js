@@ -30,7 +30,7 @@ exports.create = async (req, res, next) => {
     // await student.save();
     res.json({ message: "Form Submitted Successfully!", file, files });
   } catch (error) {
-    res.json(error.message);
+    res.json(error);
   }
 };
 
