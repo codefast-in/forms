@@ -15,7 +15,21 @@ app.use(require("cors")({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//session and cookie
+const session = require("express-session");
+const cookieparser = require("cookie-parser");
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: process.env.EXPRESS_SESSION_SECRET,
+  })
+);
+
+app.use(cookieparser());
+
 // router   - this is our base url
-app.use("/api/v2", require("./routes/indexRouter.js"));
+app.use("/api/v2/", require("./routes/indexRouter.js"));
+app.use("/api/v2/admin", require("./routes/adminRoute.js"));
 
 app.listen(4000, console.log("server running on port:4000"));
