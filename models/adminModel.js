@@ -26,8 +26,9 @@ adminSchema.methods.comparepassword = function (password) {
 
 //generate Token
 adminSchema.methods.getjwttoken = function () {
+  const expiresIn = process.env.JWT_EXPIRE || "12h";
   return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: expiresIn,
   });
 };
 
