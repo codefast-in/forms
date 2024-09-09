@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const informationSchema = mongoose.Schema(
   {
+    documents: [{ type: mongoose.Schema.Types.ObjectId, ref: "document" }],
+    academic: [{ type: mongoose.Schema.Types.ObjectId, ref: "academic" }],
     userId: { type: String },
     name: {
       type: String,
@@ -29,6 +31,12 @@ const informationSchema = mongoose.Schema(
     updatedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "admin",
+    },
+    gender: {
+      type: String,
+    },
+    location: {
+      type: String,
     },
   },
   { timestamps: true }

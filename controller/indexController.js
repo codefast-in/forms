@@ -1,6 +1,7 @@
 const formModel = require("../models/indexModel");
 const imagekit = require("../utils/imageKit.js").initImageKit();
-
+const documentModel = require("../models/documentModel.js");
+const academicModel = require("../models/academicModel.js");
 exports.home = async (req, res, next) => {
   try {
     res.status(200).json({ message: "This is Home Route" });
@@ -76,9 +77,50 @@ exports.updateUser = async (req, res, next) => {
   res.status(201).json({ message: "User Update Successfully!" });
 };
 
+exports.uploadDocument = async (req, res, next) => {
+  const file = req.file;
+  const { title } = req.body;
+  const modified = Date.now() + file.originalname;
+  const { fileId, url } = await imagekit.upload({
+    file: file.buffer,
+    fileName: modified,
+  });
+
+  const reqData = {
+    personalDocument: { fileId: fileId, url: url, title: title },
+  };
+  const doc = await documentModel(reqData).save();
+  const user = await formModel.findById(req.params.userId).exec();
+  if (!user) {
+    return res.json({ message: "User Not Found!" });
+  }
+  await user.documents.push(doc._id);
+  await user.save();
+  res.status(200).json({ message: "Document Upload Successfully!", doc });
+};
+
+exports.uploadAcademicDetails = async (req, res, next) => {
+  const { body } = req;
+  const academic = await academicModel(body).save();
+  const user = await formModel.findById(req.params.userId).exec();
+  if (!user) {
+    return res.status(500).json({ message: "User Not Found" });
+  }
+  await user.academic.push(academic._id);
+  await user.save();
+  res
+    .status(200)
+    .json({ message: "Document Upload Successfully!", academic, user });
+};
+
 exports.read = async (req, res, next) => {
   try {
-    const data = await formModel.find();
+    const data = await formModel.find().populate([
+      { path: "updatedBy", select: "" },
+      { path: "createdBy", select: "" },
+      { path: "documents", select: "" },
+      { path: "academic", select: "" },
+    ]);
     res.status(200).json({ meaage: "Rad All Data", data });
   } catch (error) {
     res.json(error.message);
