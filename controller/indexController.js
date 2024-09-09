@@ -33,7 +33,15 @@ exports.create = async (req, res, next) => {
 };
 
 exports.findOne = async (req, res, next) => {
-  const user = await formModel.findById(req.params.userid).exec();
+  const user = await formModel
+    .findById(req.params.userid)
+    .populate([
+      { path: "updatedBy", select: "" },
+      { path: "createdBy", select: "" },
+      { path: "documents", select: "" },
+      { path: "academic", select: "" },
+    ])
+    .exec();
   if (!user) {
     res.status(500).json({ message: "User Not Found!" });
     return;
