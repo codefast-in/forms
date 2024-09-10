@@ -71,7 +71,7 @@ exports.updateUser = async (req, res, next) => {
   }
   
   if(file){
-    // await imagekit.deleteFile(user.image.fileId);  
+    await imagekit.deleteFile(user.image.fileId);  
     
     const modified = Date.now() + file.originalname;
     const { fileId, url } = await imagekit.upload({
