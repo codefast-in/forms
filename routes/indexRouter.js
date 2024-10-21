@@ -46,7 +46,7 @@ router.post(
   uploadDocument
 );
 
-//POST /api/v2/upload-doc
+//POST /api/v2/upload-doc/${docId}  form Data {file?:File,title?:String}
 router.post(
   "/update-doc/:docId",
   isAuthenticated,
@@ -54,20 +54,20 @@ router.post(
   updateDocument
 );
 
-//POST /api/v2/delete-doc
+//POST /api/v2/delete-doc/  Json Data {userId?:String,docId?:String}
 router.post("/delete-doc/", isAuthenticated, deleteDocument);
 
-//POST /api/v2/upload-acedmic
+//POST /api/v2/upload-acedmic/${userId}  Json Data {course?:String,institute?:String,year?:String,startDate?:String,duration?:String,marks?:Number}
 router.post("/upload-acedmic/:userId", isAuthenticated, uploadAcademicDetails);
 
-//POST /api/v2/upload-acedmic
+//POST /api/v2/upload-acedmic/${academicId}  Json Data {course?:String,institute?:String,year?:String,startDate?:String,duration?:String,marks?:Number}
 router.post(
   "/update-acedmic/:academicId",
   isAuthenticated,
   updateAcademicDetails
 );
 
-//POST /api/v2/delete-acedmic
+//POST /api/v2/delete-acedmic   Json Data {userId?:String,docId?:String}
 router.post("/delete-acedmic/", isAuthenticated, deleteAcademicDetails);
 
 //GET  /api/v2/readall

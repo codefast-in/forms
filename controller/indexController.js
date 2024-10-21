@@ -20,6 +20,7 @@ exports.create = async (req, res, next) => {
     const { fileId, url } = await imagekit.upload({
       file: file.buffer,
       fileName: modified,
+      folder: "Academic",
     });
     const reqData = {
       ...req.body,
@@ -107,6 +108,7 @@ exports.uploadDocument = async (req, res, next) => {
   const { fileId, url } = await imagekit.upload({
     file: file.buffer,
     fileName: modified,
+    folder: "Academic",
   });
 
   const reqData = {
