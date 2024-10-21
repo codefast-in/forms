@@ -46,4 +46,12 @@ const informationSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+informationSchema.index(
+  { userId: "text" },
+  {
+    default_language: "none",
+    language_override: "none",
+  }
+);
+
 module.exports = mongoose.model("user", informationSchema);

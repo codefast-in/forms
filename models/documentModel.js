@@ -10,4 +10,12 @@ const documentSchema = mongoose.Schema({
   },
 });
 
+documentSchema.index(
+  { documentId: "text" },
+  {
+    default_language: "none",
+    language_override: "none",
+  }
+);
+
 module.exports = mongoose.model("document", documentSchema);

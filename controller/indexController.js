@@ -238,9 +238,23 @@ exports.read = async (req, res, next) => {
   }
 };
 
-exports.searchOne = async (req, res, next) => {
+exports.searchDocument = async (req, res, next) => {
   try {
-    res.status(200).json({ meaage: "Rad All Data" });
+    const { text } = req.body;
+    const pipeline = [{ $match: { $text: { $search: text } } }];
+    const document = await documentModel.aggregate(pipeline);
+    res.status(200).json(document);
+  } catch (error) {
+    res.json(error.message);
+  }
+};
+
+exports.searchUser = async (req, res, next) => {
+  try {
+    const { text } = req.body;
+    const pipeline = [{ $match: { $text: { $search: text } } }];
+    const user = await formModel.aggregate(pipeline);
+    res.status(200).json(user);
   } catch (error) {
     res.json(error.message);
   }

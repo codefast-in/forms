@@ -13,6 +13,8 @@ const {
   deleteAcademicDetails,
   updateAcademicDetails,
   searchOne,
+  searchDocument,
+  searchUser,
 } = require("../controller/indexController");
 const router = express.Router();
 const upload = require("../middlewares/multer.js");
@@ -77,7 +79,10 @@ router.get(
   read
 );
 
-//GET  /api/v2/readall
-router.get("/search-one", isAuthenticated, searchOne);
+//POST  /api/v2/search-one Json Data {text?:String}
+router.post("/search-document", isAuthenticated, searchDocument);
+
+//POST  /api/v2/search-one Json Data {text?:String}
+router.post("/search-user", isAuthenticated, searchUser);
 
 module.exports = router;
