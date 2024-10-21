@@ -8,6 +8,11 @@ const {
   updateUser,
   uploadDocument,
   uploadAcademicDetails,
+  updateDocument,
+  deleteDocument,
+  deleteAcademicDetails,
+  updateAcademicDetails,
+  searchOne,
 } = require("../controller/indexController");
 const router = express.Router();
 const upload = require("../middlewares/multer.js");
@@ -41,8 +46,29 @@ router.post(
   uploadDocument
 );
 
+//POST /api/v2/upload-doc
+router.post(
+  "/update-doc/:docId",
+  isAuthenticated,
+  upload.single("document"),
+  updateDocument
+);
+
+//POST /api/v2/delete-doc
+router.post("/delete-doc/", isAuthenticated, deleteDocument);
+
 //POST /api/v2/upload-acedmic
 router.post("/upload-acedmic/:userId", isAuthenticated, uploadAcademicDetails);
+
+//POST /api/v2/upload-acedmic
+router.post(
+  "/update-acedmic/:academicId",
+  isAuthenticated,
+  updateAcademicDetails
+);
+
+//POST /api/v2/delete-acedmic
+router.post("/delete-acedmic/", isAuthenticated, deleteAcademicDetails);
 
 //GET  /api/v2/readall
 router.get(
@@ -50,5 +76,8 @@ router.get(
   //  isAuthenticated,
   read
 );
+
+//GET  /api/v2/readall
+router.get("/search-one", isAuthenticated, searchOne);
 
 module.exports = router;
